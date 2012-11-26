@@ -44,11 +44,11 @@ anodes <= not anodes_out or not enabledigit;
 SP: PROCESS(counter4out,enabledigit)
 begin
 	CASE counter4out IS
-		WHEN "00" => anodes_out <= "0001";
-		WHEN "01" => anodes_out <= "0010";
-		WHEN "10" => anodes_out <= "0100";
-		WHEN "11" => anodes_out <= "1000";
-		WHEN others => anodes_out <= "0000";
+		WHEN "00" => anodes_out <= x"1";
+		WHEN "01" => anodes_out <= x"2";
+		WHEN "10" => anodes_out <= x"4";
+		WHEN "11" => anodes_out <= x"8";
+		WHEN others => anodes_out <= (others => '0');
 	END CASE;
 END PROCESS;
 

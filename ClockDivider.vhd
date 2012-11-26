@@ -40,20 +40,27 @@ end ClockDivider;
 architecture Behavioral of ClockDivider is
 constant div : Integer := freq_in/freq_out -1;
 signal value,not_reset : STD_LOGIC := '0';
-signal counter : Integer := 0;
 begin
 
 not_reset <= not reset;
 clock_out <= value;
 
 CC: PROCESS(clock_in, not_reset)
+variable counter : integer range 0 to div := 0;
 begin
-if (rising_edge(clock_in) and not_reset = '1') then counter <= counter +1;
-	if counter = div then
-		value <= not value;
-		counter <= 0;
+
+if not_reset = '1' then
+		counter := 0;
+		value <= '0';
+	elsif clock_in'event and clock_in = '1' then
+		if counter = div then
+			value <=  '1';
+			counter := 0;
+		else
+			value <=  '0';
+			counter := counter + 1;
+		end if;
 	end if;
-end if;
 
 END PROCESS;
 

@@ -43,18 +43,16 @@ end ControlUnit;
 
 architecture Behavioral of ControlUnit is
 
-signal not_reset : STD_LOGIC ;
+signal not_reset : STD_LOGIC := '0' ;
 signal value_out : STD_LOGIC_VECTOR (15 downto 0) := (others => '0');
 signal dots_out : STD_LOGIC_VECTOR (3 downto 0) := (others => '0');
 signal en_out : STD_LOGIC_VECTOR (3 downto 0) := (others => '0');
 begin
 
 not_reset <= not reset; 
-value <= value_out;
-dots <= dots_out;
-en <= en_out;
 
-CUPROCESS:PROCESS(clock,reset,MSB_in,LSB_in,DOTS_in,byte_in)
+
+CUPROCESS:PROCESS(clock,not_reset,MSB_in,LSB_in,DOTS_in)
 begin
 
 	if not_reset = '1' then
@@ -66,12 +64,17 @@ begin
 		value_out(15 downto 8) <= byte_in;
 		elsif LSB_in = '1' then
 		value_out(7 downto 0) <= byte_in;
-		elsif DOTS_in = '1' then
+		end if;
+		if DOTS_in = '1' then
 		dots_out <= byte_in(7 downto 4);
-		en_out <= byte_in (3 downto 0);
+		en_out <= byte_in(3 downto 0);
 		end if;
 	end if;
 END PROCESS;
+
+value <= value_out;
+dots <= dots_out;
+en <= en_out;
 
 end Behavioral;
 

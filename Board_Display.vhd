@@ -30,8 +30,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity Board_Display is
-    GENERIC(freq_in : Integer := 50000000;
-				freq_out : Integer := 400);
+    --GENERIC(freq_in : Integer := 50000000;
+		--		freq_out : Integer := 400);
     Port ( byte_i : in  STD_LOGIC_VECTOR (7 downto 0);
            MSB : in  STD_LOGIC;
            LSB : in  STD_LOGIC;
@@ -83,7 +83,7 @@ rst_n <= not reset;
 anodes <= anodi;
 cathodes <= catodi;
 CONN1: ControlUnit port map(clk,rst_n,MSB,LSB,DOTS,val_out,byte_i,d_out,e_out);
-CONN2: Display7 GENERIC MAP(freq_in,freq_out) port map(clk,rst_n,e_out,d_out,val_out,anodi,catodi);
+CONN2: Display7 GENERIC MAP(50000000,400) port map(clk,rst_n,e_out,d_out,val_out,anodi,catodi);
 
 end Behavioral;
 

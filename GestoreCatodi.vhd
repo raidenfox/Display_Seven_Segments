@@ -39,7 +39,7 @@ end GestoreCatodi;
 
 architecture Behavioral of GestoreCatodi is
 
-constant zero   : std_logic_vector(6 downto 0) := "1000000"; 
+constant zero   : std_logic_vector(6 downto 0) := "1000000";
 constant one    : std_logic_vector(6 downto 0) := "1111001"; 
 constant two    : std_logic_vector(6 downto 0) := "0100100"; 
 constant three  : std_logic_vector(6 downto 0) := "0110000"; 
